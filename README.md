@@ -22,7 +22,7 @@
 Відкрийте термінал та виконайте команду для клонування проєкту, після чого перейдіть у папку проєкту:
 ```bash
 git clone https://github.com/Sl33px/next.js-exam.git
-cd next-exam
+cd next.js-exam
 ```
 
 ### 2. Налаштування середовища та API Key
