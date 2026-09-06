@@ -1,8 +1,8 @@
 import Link from "next/link";
 import type { IMovie } from "@/models/IMovie";
 import type { IMovieGenre } from "@/models/IMovieGenre";
-import PosterPreview from "./PosterPreview";
-import GenreBadge from "./GenreBadge";
+import PosterPreviewComponent from "../PosterPreview/PosterPreviewComponent";
+import GenreBadgeComponent from "../GenreBadge/GenreBadgeComponent";
 
 type Props = {
     movie: IMovie;
@@ -10,7 +10,7 @@ type Props = {
     genres?: IMovieGenre[];
 };
 
-const MoviesListCard = ({ movie, isFirst = false, genres = [] }: Props) => {
+const MoviesListCardComponent = ({ movie, isFirst = false, genres = [] }: Props) => {
     if (!movie) return null;
 
     const genresMap = new Map(genres.map((g) => [g.id, g.name]));
@@ -20,7 +20,7 @@ const MoviesListCard = ({ movie, isFirst = false, genres = [] }: Props) => {
             href={`/movie/${movie.id}`}
             className="group relative bg-zinc-900 rounded-xl overflow-hidden border border-white/10 flex flex-col justify-between hover:border-white/30 transition-all duration-300 h-full w-full"
         >
-            <PosterPreview
+            <PosterPreviewComponent
                 posterPath={movie.poster_path}
                 title={movie.title || movie.original_title}
                 priority={isFirst}
@@ -41,7 +41,7 @@ const MoviesListCard = ({ movie, isFirst = false, genres = [] }: Props) => {
                 {movie.genre_ids && movie.genre_ids.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-2 min-h-[24px] items-end">
                         {movie.genre_ids.slice(0, 2).map((id) => (
-                            <GenreBadge
+                            <GenreBadgeComponent
                                 key={id}
                                 genreId={id}
                                 genreName={genresMap.get(id)}
@@ -54,4 +54,4 @@ const MoviesListCard = ({ movie, isFirst = false, genres = [] }: Props) => {
     );
 };
 
-export default MoviesListCard;
+export default MoviesListCardComponent;

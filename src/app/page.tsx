@@ -1,6 +1,6 @@
 import {getAllMovies, getAllUpcomingMovies, getMovieGenres, searchMoviesApi} from "@/services/movies.api";
-import MoviesListComponent from "@/components/MoviesListComponent";
-import UpcomingMoviesComponent from "@/components/UpcomingMoviesComponent";
+import MoviesListComponent from "@/components/MoviesList/MoviesListComponent";
+import UpcomingMoviesComponent from "@/components/UpcomingMovies/UpcomingMoviesComponent";
 
 interface HomePageProps {
   searchParams: Promise<{

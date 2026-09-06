@@ -5,7 +5,7 @@ import {ICollectionMovie} from "@/models/ICollectionMovie";
 import {IMovieByID} from "@/models/IMovieByID";
 import {IMovie} from "@/models/IMovie";
 
-const ACCESS_TOKEN = process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN;
+const ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
 const BASE_URL = 'https://api.themoviedb.org/3/'
 
 const fetchHelperForCaching = async <T>(

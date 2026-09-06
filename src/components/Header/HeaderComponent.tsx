@@ -1,6 +1,6 @@
 import Link from "next/link";
-import UserInfoComponent from "./UserInfoComponent";
-import SearchInputComponent from "@/components/pagination/SearchInputComponent";
+import UserInfoComponent from "../UserInfo/UserInfoComponent";
+import SearchInputComponent from "@/components/SearchInput/SearchInputComponent";
 import {Suspense} from "react";
 
 const HeaderComponent = () => {

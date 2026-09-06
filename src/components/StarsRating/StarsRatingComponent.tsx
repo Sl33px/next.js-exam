@@ -2,7 +2,7 @@ type StarsRatingProps = {
     voteAverage: number;
 };
 
-const StarsRating = ({ voteAverage }: StarsRatingProps) => {
+const StarsRatingComponent = ({ voteAverage }: StarsRatingProps) => {
     const rating = voteAverage ? Number(voteAverage.toFixed(1)) : 0;
 
     return (
@@ -48,4 +48,4 @@ const StarsRating = ({ voteAverage }: StarsRatingProps) => {
     );
 };
 
-export default StarsRating;
+export default StarsRatingComponent;

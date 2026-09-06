@@ -4,7 +4,6 @@ import { type FormEvent, useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { searchMoviesApi } from "@/services/movies.api";
 import type { IMovie } from "@/models/IMovie";
 
 const SearchInputComponent = () => {
@@ -18,7 +17,7 @@ const SearchInputComponent = () => {
 
     const wrapperRef = useRef<HTMLDivElement>(null);
 
-    // Синхронізація з URL: якщо параметру query немає (наприклад, перейшли на Головну), інпут очищається
+    // sync with URL: input clear, if parameter query isnt
     useEffect(() => {
         const urlQuery = searchParams.get("query");
         if (!urlQuery) {
@@ -26,7 +25,7 @@ const SearchInputComponent = () => {
         }
     }, [searchParams]);
 
-    // Live-search підказки з затримкою 300ms
+    // Live-search tips through inner API Proxy
     useEffect(() => {
         const query = searchQuery.trim();
 
@@ -39,7 +38,10 @@ const SearchInputComponent = () => {
         const timer = setTimeout(async () => {
             setIsLoading(true);
             try {
-                const data = await searchMoviesApi(query, 1);
+                const response = await fetch(`/api/movies/search?query=${encodeURIComponent(query)}&page=1`);
+                if (!response.ok) throw new Error("Search request failed");
+
+                const data = await response.json();
                 setSuggestions(data.results ? data.results.slice(0, 5) : []);
                 setIsOpen(true);
             } catch (error) {
@@ -52,7 +54,7 @@ const SearchInputComponent = () => {
         return () => clearTimeout(timer);
     }, [searchQuery]);
 
-    // Закриття випадаючого списку при кліку поза ним
+    // Closing a drop-down list when clicking outside it
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
@@ -73,7 +75,6 @@ const SearchInputComponent = () => {
             router.push("/");
         }
 
-        // Очищаємо інпут та закриваємо підказки після відправки
         setSearchQuery("");
         setIsOpen(false);
     };
@@ -97,7 +98,7 @@ const SearchInputComponent = () => {
                 </button>
             </form>
 
-            {/* Выпадающий список с подсказками */}
+            {/* Drop-down list with hints */}
             {isOpen && (
                 <div className="absolute left-0 right-0 mt-2 bg-zinc-900 border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50 max-h-96 overflow-y-auto">
                     {isLoading ? (
@@ -117,7 +118,7 @@ const SearchInputComponent = () => {
                                         href={`/movie/${movie.id}`}
                                         onClick={() => {
                                             setIsOpen(false);
-                                            setSearchQuery(""); // Очищаем инпут при клике на фильм
+                                            setSearchQuery("");
                                         }}
                                         className="flex items-center gap-3 p-2.5 hover:bg-zinc-800 transition-colors group"
                                     >
@@ -171,6 +172,6 @@ const SearchInputComponent = () => {
             )}
         </div>
     );
-}
+};
 
 export default SearchInputComponent;

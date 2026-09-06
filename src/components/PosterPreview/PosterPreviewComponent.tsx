@@ -8,7 +8,7 @@ type PosterPreviewProps = {
     sizes?: string;
 };
 
-const PosterPreview = ({
+const PosterPreviewComponent = ({
                            posterPath,
                            title,
                            priority = false,
@@ -35,4 +35,4 @@ const PosterPreview = ({
     );
 };
 
-export default PosterPreview;
+export default PosterPreviewComponent;

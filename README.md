@@ -30,7 +30,7 @@ cd next.js-exam
 
 У корені проєкту створіть файл `.env.local`:
    ```env
-    NEXT_PUBLIC_TMDB_ACCESS_TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5NzY1Y2EzZjk5YzU1MTgyZDJmMTQ5YTQwNWIxMjMxNCIsIm5iZiI6MTc4ODA0NzE1NS45NjEsInN1YiI6IjZhOTM2ZjMzMjUwMDUxYjM5ZDRmNmNhOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.xJUY-XKzTqmeacJgl2v0CRFjUyAPOC57Ak8XMaDYvkI
+    TMDB_ACCESS_TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5NzY1Y2EzZjk5YzU1MTgyZDJmMTQ5YTQwNWIxMjMxNCIsIm5iZiI6MTc4ODA0NzE1NS45NjEsInN1YiI6IjZhOTM2ZjMzMjUwMDUxYjM5ZDRmNmNhOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.xJUY-XKzTqmeacJgl2v0CRFjUyAPOC57Ak8XMaDYvkI
    ```
 
 ### 3. Встановлення залежностей та запуск
@@ -79,11 +79,11 @@ npm run build
 * Візуальне оформлення: Динамічний розмитий задній фон (`backdrop_path`) із затіненням для занурення в атмосферу фільму.
 * #### Основна інформація:
 * Назва, оригінальна назва, слоган (`tagline`), віковий рейтинг (18+) та опис (`overview`).
-* Постер високої якості з оптимізацією через `<Image /> (next/image)` та інтерактивний рейтинг зірочками (`StarsRating`).
+* Постер високої якості з оптимізацією через `<Image /> (next/image)` та інтерактивний рейтинг зірочками (`StarsRatingComponent`).
 * Тривалість фільму, дата релізу, мова оригіналу, бюджет та касові збори.
 
 * Категорії та Жанри: Інтерактивні бейджі жанрів, клік на які повертає на головну сторінку з фільтрацією за обраним жанром (`/?with_genres=ID`).
-* Франшиза / Колекція: Відображення блоку серії фільмів (`MovieCollectionBlock`), якщо стрічка належить до кіновсесвіту.
+* Франшиза / Колекція: Відображення блоку серії фільмів (`MovieCollectionBlockComponent`), якщо стрічка належить до кіновсесвіту.
 * #### Медіа та Виробництво:
 * Вбудований компонент перегляду офіційних трейлерів (`MovieTrailerComponent`).
 * Галерея логотипів компаній-виробників із використанням remotePatterns для безпечного завантаження зовнішніх зображень.

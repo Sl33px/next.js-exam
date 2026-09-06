@@ -8,7 +8,7 @@ type GenreBadgeProps = {
     genreName?: string;
 };
 
-const GenreBadge = ({ genreId, genreName }: GenreBadgeProps) => {
+const GenreBadgeComponent = ({ genreId, genreName }: GenreBadgeProps) => {
     const router = useRouter();
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -28,4 +28,4 @@ const GenreBadge = ({ genreId, genreName }: GenreBadgeProps) => {
     );
 };
 
-export default GenreBadge;
+export default GenreBadgeComponent;

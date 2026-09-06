@@ -3,8 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {ICollectionMovie, Parts} from "@/models/ICollectionMovie";
-import {getCollectionByID} from "@/services/movies.api";
+import { ICollectionMovie, Parts } from "@/models/ICollectionMovie";
 
 type MovieCollectionBlockProps = {
     collectionInfo: {
@@ -14,7 +13,7 @@ type MovieCollectionBlockProps = {
     };
 };
 
-const MovieCollectionBlock = ({ collectionInfo }: MovieCollectionBlockProps) => {
+const MovieCollectionBlockComponent = ({ collectionInfo }: MovieCollectionBlockProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [collectionData, setCollectionData] = useState<ICollectionMovie | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -22,11 +21,13 @@ const MovieCollectionBlock = ({ collectionInfo }: MovieCollectionBlockProps) => 
     const handleToggle = async () => {
         setIsOpen((prev) => !prev);
 
-        // fetch collection data on first expand
         if (!collectionData && !isLoading) {
             try {
                 setIsLoading(true);
-                const data = await getCollectionByID(collectionInfo.id);
+                const response = await fetch(`/api/movies/collection/${collectionInfo.id}`);
+                if (!response.ok) throw new Error("Failed to fetch collection");
+
+                const data = await response.json();
                 setCollectionData(data);
             } catch (error) {
                 console.error("Failed to fetch collection:", error);
@@ -38,7 +39,6 @@ const MovieCollectionBlock = ({ collectionInfo }: MovieCollectionBlockProps) => 
 
     return (
         <div className="bg-zinc-900/90 border border-white/10 rounded-2xl overflow-hidden shadow-xl transition-all duration-300">
-            {/* header expand button */}
             <button
                 type="button"
                 onClick={handleToggle}
@@ -57,9 +57,9 @@ const MovieCollectionBlock = ({ collectionInfo }: MovieCollectionBlockProps) => 
                         </div>
                     )}
                     <div>
-            <span className="text-xs text-blue-400 font-semibold tracking-wide uppercase block">
-              Part of the franchise
-            </span>
+                        <span className="text-xs text-blue-400 font-semibold tracking-wide uppercase block">
+                            Part of the franchise
+                        </span>
                         <h3 className="font-bold text-lg text-white mt-0.5">
                             {collectionInfo.name}
                         </h3>
@@ -69,7 +69,6 @@ const MovieCollectionBlock = ({ collectionInfo }: MovieCollectionBlockProps) => 
                     </div>
                 </div>
 
-                {/* arrow indicator */}
                 <div
                     className="text-zinc-400 text-xl font-bold pr-2 transition-transform duration-300"
                     style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}
@@ -78,7 +77,6 @@ const MovieCollectionBlock = ({ collectionInfo }: MovieCollectionBlockProps) => 
                 </div>
             </button>
 
-            {/* franchise parts list */}
             {isOpen && (
                 <div className="border-t border-white/10 bg-black/40 p-4 space-y-3">
                     {isLoading ? (
@@ -96,7 +94,7 @@ const MovieCollectionBlock = ({ collectionInfo }: MovieCollectionBlockProps) => 
                                 )
                                 .map((part: Parts) => {
                                     const partPoster = part.poster_path
-                                        ? `https://image.tmdb.org/t/p/w200${part.poster_path}`
+                                        ? `https://image.tmdb.org/t/p/w92${part.poster_path}`
                                         : "/placeholder.png";
 
                                     return (
@@ -110,7 +108,6 @@ const MovieCollectionBlock = ({ collectionInfo }: MovieCollectionBlockProps) => 
                                                     src={partPoster}
                                                     alt={part.name || part.original_name || "Movie poster"}
                                                     fill
-                                                    priority
                                                     sizes="48px"
                                                     className="object-cover"
                                                 />
@@ -125,8 +122,8 @@ const MovieCollectionBlock = ({ collectionInfo }: MovieCollectionBlockProps) => 
                                                     )}
                                                     {part.vote_average > 0 && (
                                                         <span className="text-amber-400 font-medium">
-                              ★ {part.vote_average.toFixed(1)}
-                            </span>
+                                                            ★ {part.vote_average.toFixed(1)}
+                                                        </span>
                                                     )}
                                                 </div>
                                             </div>
@@ -145,4 +142,4 @@ const MovieCollectionBlock = ({ collectionInfo }: MovieCollectionBlockProps) => 
     );
 };
 
-export default MovieCollectionBlock;
+export default MovieCollectionBlockComponent;

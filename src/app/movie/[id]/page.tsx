@@ -2,10 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getMovieById } from "@/services/movies.api";
-import MovieCollectionBlock from "@/components/MovieCollectionBlock";
-import MovieTrailerComponent from "@/components/MovieTrailerComponent";
-import StarsRating from "@/components/StarsRating";
-import PosterPreview from "@/components/PosterPreview";
+import MovieCollectionBlockComponent from "@/components/MovieCollectionBlock/MovieCollectionBlockComponent";
+import MovieTrailerComponent from "@/components/MovieTrailer/MovieTrailerComponent";
+import StarsRatingComponent from "@/components/StarsRating/StarsRatingComponent";
+import PosterPreviewComponent from "@/components/PosterPreview/PosterPreviewComponent";
 import {Metadata} from "next";
 
 type Props = {
@@ -85,7 +85,7 @@ const MovieDetailsPage = async ({ params }: Props) => {
                 <div className="flex flex-col md:flex-row gap-8 lg:gap-12 items-start">
                     {/* Left column */}
                     <div className="w-full sm:w-80 md:w-96 shrink-0 mx-auto md:mx-0 space-y-6">
-                        <PosterPreview
+                        <PosterPreviewComponent
                             posterPath={movie.poster_path}
                             title={movie.title || "Movie poster"}
                             priority
@@ -155,7 +155,7 @@ const MovieDetailsPage = async ({ params }: Props) => {
                         {/* Rating, Duration, Date */}
                         <div className="flex flex-wrap items-center gap-4 text-base font-semibold">
                             <div className="flex items-center gap-3 bg-zinc-900/80 px-4 py-2 rounded-xl border border-white/10">
-                                <StarsRating voteAverage={movie.vote_average} />
+                                <StarsRatingComponent voteAverage={movie.vote_average} />
                                 <span className="text-zinc-500 text-xs">({movie.vote_count} votes)</span>
                             </div>
 
@@ -200,7 +200,7 @@ const MovieDetailsPage = async ({ params }: Props) => {
 
                         {/* Franchise */}
                         {movie.belongs_to_collection && (
-                            <MovieCollectionBlock collectionInfo={movie.belongs_to_collection} />
+                            <MovieCollectionBlockComponent collectionInfo={movie.belongs_to_collection} />
                         )}
 
                         {/* Countries and Languages */}

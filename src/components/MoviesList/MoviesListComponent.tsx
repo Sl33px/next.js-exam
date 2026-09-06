@@ -3,8 +3,8 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import type { IMovie } from "@/models/IMovie";
 import type { IMovieGenre } from "@/models/IMovieGenre";
-import MoviesListCard from "./MoviesListCard";
-import Pagination from "./pagination/PaginationComponent";
+import MoviesListCardComponent from "../MoviesListCard/MoviesListCardComponent";
+import Pagination from "@/components/Pagination/PaginationComponent";
 
 interface Props {
     movies: IMovie[];
@@ -154,7 +154,7 @@ const MoviesListComponent = ({
             {movies && movies.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
                     {movies.map((movie: IMovie, index) => (
-                        <MoviesListCard key={movie.id} movie={movie} genres={genres} isFirst={index === 0} />
+                        <MoviesListCardComponent key={movie.id} movie={movie} genres={genres} isFirst={index === 0} />
                     ))}
                 </div>
             ) : (

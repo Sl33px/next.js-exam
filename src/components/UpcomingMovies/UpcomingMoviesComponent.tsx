@@ -3,7 +3,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import type { IMovie } from "@/models/IMovie";
-import MoviesListCard from "./MoviesListCard";
+import MoviesListCardComponent from "../MoviesListCard/MoviesListCardComponent";
 import type {IMovieGenre} from "@/models/IMovieGenre";
 
 type Props = {
@@ -35,7 +35,7 @@ const UpcomingMoviesComponent = ({ upcomingMovies, genres = [] }: Props) => {
             >
                 {upcomingMovies.map((movie) => (
                     <SwiperSlide key={movie.id}>
-                        <MoviesListCard movie={movie} genres={genres}/>
+                        <MoviesListCardComponent movie={movie} genres={genres}/>
                     </SwiperSlide>
                 ))}
             </Swiper>
